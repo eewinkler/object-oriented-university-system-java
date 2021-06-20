@@ -103,26 +103,28 @@ public abstract class Person implements Serializable{
 		}
 	}
 	
-	
-	public String[] makeScheduleReal(int sch) {
-		int first, second, third;
-		String[] lastSch = {"none"};
+	public String[] makeScheduleReal(int sch) {//function assigns numerical value for schedule to a string with cooresponding day and time slot
+		int first, second, third;//temp variables
+		String[] lastSch = {"none"};//string array
 
-		ArrayList<String> Week = new ArrayList<String>();
-		Week.add("Mon "); Week.add("Tue "); Week.add("Wed "); Week.add("Thu "); Week.add("Fri ");
-		ArrayList<String> Slot = new ArrayList<String>();
+		ArrayList<String> Week = new ArrayList<String>();//string ArrayList for days of the week
+		Week.add("Mon "); Week.add("Tue "); Week.add("Wed "); Week.add("Thu "); Week.add("Fri ");//load array with Mon-Fri
+		ArrayList<String> Slot = new ArrayList<String>();//string ArrayList for class time slots
 		Slot.add("8:00am to 9:15am");
 		Slot.add("9:30am to 10:45am");
 		Slot.add("11:00am to 12:15pm");
 		Slot.add("12:30pm to 1:45pm");
 		Slot.add("2:00pm to 3:15pm");
-		Slot.add("3:30pm to 4:45pm");    
+		Slot.add("3:30pm to 4:45pm");   
 		
-		first = sch % 10;
-		second = ((sch % 100) - first);
-		third = ((sch) - (second + first))/100;
+		//Integer passed in (sch) is a three digit integer. The first integer corresponds to a time slot (1-6) and the third digit corresponds to the day of the week (1-5).
+		//Second digit contributes to the third digit calculation
 		
-		lastSch[0] = Week.get(third - 1) + Slot.get(first - 1);
+		first = sch % 10;//first digit
+		second = ((sch % 100) - first);//second digit
+		third = ((sch) - (second + first))/100;//third digit
+		
+		lastSch[0] = Week.get(third - 1) + Slot.get(first - 1);//Finds complete schedule and puts the string into the final array
 		
 		return lastSch;
 	}
