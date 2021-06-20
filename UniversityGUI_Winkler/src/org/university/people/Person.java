@@ -3,43 +3,43 @@ package org.university.people;
 import java.io.Serializable; 
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
+import javax.swing.JOptionPane;//swing importation
 
 import org.university.software.CampusCourse;
 import org.university.software.OnlineCourse;
 
 public abstract class Person implements Serializable{
 
-	protected String name;
-	protected ArrayList<Integer> schedule;
-	protected ArrayList<CampusCourse> CampusCourseList;
-	protected ArrayList<OnlineCourse> OnlineCourseList;
+	protected String name;//person name
+	protected ArrayList<Integer> schedule;//person schedule
+	protected ArrayList<CampusCourse> CampusCourseList;//person campus course list
+	protected ArrayList<OnlineCourse> OnlineCourseList;//person online course list
 	
-	public Person () {
+	public Person () {//initialization
 		name = "unknown";
 		this.schedule = new ArrayList<Integer>();
 		this.CampusCourseList = new ArrayList<CampusCourse>();
 		this.OnlineCourseList = new ArrayList<OnlineCourse>();
 	}
 	
-	public String getName() {
+	public String getName() {//name getter
 		return name;
 	}
 	
-	public void setName(String newName) {
+	public void setName(String newName) {//name setter
 		name = newName;
 	}
 	
-	public ArrayList<CampusCourse> getCCourse() {
+	public ArrayList<CampusCourse> getCCourse() {//campus course list getter
 		return CampusCourseList;
 	}
 	
-	public ArrayList<OnlineCourse> getOCourse() {
+	public ArrayList<OnlineCourse> getOCourse() {//online course list getter
 		return OnlineCourseList;
 	}
 	
-	public abstract void addCourse(CampusCourse newCourse);
-	public abstract void addCourse(OnlineCourse newCourse);
+	public abstract void addCourse(CampusCourse newCourse);//abstract add campus course method, used in student
+	public abstract void addCourse(OnlineCourse newCourse);//abstract add online course method, used in student
 	
 	public boolean detectConflict(CampusCourse c) {
 		
