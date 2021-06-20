@@ -38,67 +38,67 @@ public abstract class Person implements Serializable{
 		return OnlineCourseList;
 	}
 	
-	public abstract void addCourse(CampusCourse newCourse);//abstract add campus course method, used in student
-	public abstract void addCourse(OnlineCourse newCourse);//abstract add online course method, used in student
+	public abstract void addCourse(CampusCourse newCourse);//abstract add campus course method, used in student and professor
+	public abstract void addCourse(OnlineCourse newCourse);//abstract add online course method, used in student and professor
 	
-	public boolean detectConflict(CampusCourse c) {
+	public boolean detectConflict(CampusCourse c) {//detects scheduling conflicts for any person adding new course
 		
-		int sch, oldsch, check = 0; 
-		ArrayList<Integer> course = c.getSchedule();
+		int sch, oldsch, check = 0;//temp variables
+		ArrayList<Integer> course = c.getSchedule();//passed in courses schedule
 		
-		for (int i = 0; i < c.getSchedule().size(); i++) {
+		for (int i = 0; i < c.getSchedule().size(); i++) {//loop through passed course schedule
 			
-			sch = course.get(i);
+			sch = course.get(i);//get course 1
 			
-			for (int j = 0; j < CampusCourseList.size(); j++) {
+			for (int j = 0; j < CampusCourseList.size(); j++) {//loop for person's campus course list
 				
-				for (int k = 0; k < CampusCourseList.get(j).getSchedule().size(); k++) {
+				for (int k = 0; k < CampusCourseList.get(j).getSchedule().size(); k++) {//loop for course schedule
 					
-					oldsch = CampusCourseList.get(j).getSchedule().get(k);
+					oldsch = CampusCourseList.get(j).getSchedule().get(k);//get course 2
 				
-				if (sch == oldsch) {
+				if (sch == oldsch) {//conflict found
 					
-					String[] now = makeScheduleReal(oldsch);
+					String[] now = makeScheduleReal(oldsch);//stringify schedule
 					
-					JOptionPane.showMessageDialog(null, c.getDepartment().getDepartmentName() + c.getCourseNumber() + " cannot be added to " + getName() + "'s Schedule. " + c.getDepartment().getDepartmentName() + c.getCourseNumber() + " conflicts with " + CampusCourseList.get(j).getDepartment().getDepartmentName() + CampusCourseList.get(j).getCourseNumber() + ". Conflicting time slot is " + now[0] + ".", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, c.getDepartment().getDepartmentName() + c.getCourseNumber() + " cannot be added to " + getName() + "'s Schedule. " + c.getDepartment().getDepartmentName() + c.getCourseNumber() + " conflicts with " + CampusCourseList.get(j).getDepartment().getDepartmentName() + CampusCourseList.get(j).getCourseNumber() + ". Conflicting time slot is " + now[0] + ".", "Error", JOptionPane.ERROR_MESSAGE);//Error message prints
 	
-					check = 1;
+					check = 1;//check returns true
 					
 					}
 				}
 			}
 		}
 		if (check == 1) {
-			return true;
+			return true;//conflict
 		} 
-		return false;
+		return false;//no conflict
 	}
 	
-	public ArrayList<Integer> getSchedule() {
+	public ArrayList<Integer> getSchedule() {//schedule getter
 		return schedule;
 	}
 
-	public void setSchedule(ArrayList<Integer> schedule) {
+	public void setSchedule(ArrayList<Integer> schedule) {//schedule setter
 		this.schedule = schedule;
 	}
 	
-	public void printSchedule() {
+	public void printSchedule() {//method that prints the person's schedule list
 		if (CampusCourseList.size() >= 1) {
-		for(int n = 100; n <= 500; n = n + 100) {
-			for (int m = 1; m <= 7; m++) {
+		for(int n = 100; n <= 500; n = n + 100) {//loop with three digit course system described in method line 107, first digit described time slot (1-7) and third digit described day of the week (1-5, Mon-Fri)
+			for (int m = 1; m <= 7; m++) {//first digit
 				for (int i = 0; i < CampusCourseList.size(); i++) {
 					for (int j = 0; j < CampusCourseList.get(i).getSchedule().size(); j++) {
-						if (CampusCourseList.get(i).getSchedule().get(j) == (n + m))
-							System.out.println(CampusCourseList.get(i).getScheduleReal().get(j) + " " + CampusCourseList.get(i).getDepartment().getDepartmentName() + CampusCourseList.get(i).getCourseNumber() + " " + CampusCourseList.get(i).getName());
+						if (CampusCourseList.get(i).getSchedule().get(j) == (n + m))//combines three digits into number and checks within schedule
+							System.out.println(CampusCourseList.get(i).getScheduleReal().get(j) + " " + CampusCourseList.get(i).getDepartment().getDepartmentName() + CampusCourseList.get(i).getCourseNumber() + " " + CampusCourseList.get(i).getName());//prints if found
 						}
 					}
 				}
 			}
 		}
-		if (OnlineCourseList.size() < 1) {
+		if (OnlineCourseList.size() < 1) {//end if no online courses
 			return;
 		}
-		for (int l = 0; l < OnlineCourseList.size(); l++) {
+		for (int l = 0; l < OnlineCourseList.size(); l++) {//print online courses
 			System.out.println(OnlineCourseList.get(l).getCourseNumber() + " " + OnlineCourseList.get(l).getName());
 		}
 	}
